@@ -6,7 +6,7 @@ function LoginCard({ setAuthorized, setEmail, email }) {
   return (
     <form
       action=""
-      className='flex flex-col items-center w-[700px] h-[310px] shadow-md shadow-zinc-300 justify-center rounded-[13px]'
+      className='flex flex-col items-center sm:w-[700px] w-screen sm:h-[310px] h-screen shadow-md shadow-zinc-300 justify-center rounded-[13px]'
     >
       <h1 className='text-3xl font-bold mb-5'>LOGIN FORM</h1>
       <div className='flex flex-col'>
@@ -19,7 +19,7 @@ function LoginCard({ setAuthorized, setEmail, email }) {
           required
           value={email}
           type='email'
-          className={`border rounded-[6px] my-2 ${
+          className={`border rounded-[6px] my-2  ${
             isValid ? 'border-zinc-300' : 'border-red-500'
           }`}
           style={{ backgroundColor: isValid ? '' : '#FFC0CB' }}

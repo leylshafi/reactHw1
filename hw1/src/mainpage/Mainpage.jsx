@@ -11,7 +11,7 @@ function Mainpage({setAuthorized,authorized,email}) {
   return (
     <>
       <Navigation setAuthorized={setAuthorized} authorized = {authorized} email={email}/>
-      <button className='bg-yellow-400 py-3 px-10 font-bold rounded-[8px] hover:bg-yellow-500 ml-[68px] mt-[20px]'
+      <button className='bg-yellow-400 py-3 px-10 font-bold rounded-[8px] hover:bg-yellow-500 ml-[68px] mt-[20px] '
       onClick={(e)=>{
         openCreateModal(true)
       }}

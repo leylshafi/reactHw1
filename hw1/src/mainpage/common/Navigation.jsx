@@ -2,15 +2,15 @@ import React from 'react'
 
 function Navigation({setAuthorized, authorized,email}) {
   return (
-    <nav className='flex bg-[#E7E7E7] h-[121px] items-center justify-between'>
+    <nav className='flex flex-col sm:flex-row bg-[#E7E7E7] py-3 px-[68px]  items-center sm:justify-between justify-center'>
         
-        <p className='font-bold text-xl ml-[68px]'>{email}</p>
+        <p className='font-bold text-xl  sm:mb-0 mb-1'>{email}</p>
         
         <button 
           onClick={()=>{
             setAuthorized(false)
           }}
-         className='bg-yellow-400 py-3 px-10 font-bold rounded-[8px] mr-[68px] hover:bg-yellow-500'>Log out</button>
+         className='bg-yellow-400 py-3 px-10 font-bold rounded-[8px] hover:bg-yellow-500 sm:w-auto w-[100%]'>Log out</button>
       </nav>
   )
 }

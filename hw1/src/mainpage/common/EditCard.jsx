@@ -2,9 +2,9 @@ import React from 'react'
 
 function EditCard({openEditModal}) {
   return (
-    <form action="" className='flex flex-col items-center w-[700px] h-[350px] justify-center rounded-[13px] bg-white'>
+    <form action="" className='flex flex-col items-center sm:w-[700px] w-screen sm:h-[350px] h-screen justify-center rounded-none sm:rounded-[13px] bg-white'>
         <div className='w-[100%]'>
-            <button className='bg-red-600 w-3 h-3 rounded-full float-right my-0 mx-5' 
+            <button className='bg-red-600 p-2 rounded-full float-right my-0 mx-5' 
             onClick={()=>{
                 openEditModal(false)
               }}></button>
