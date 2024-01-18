@@ -1,20 +1,22 @@
 import React from 'react'
 
-function MainCard({openEditModal,openDeleteModal}) {
+function MainCard({setOpenModal, data, setActiveCard}) {
   return (
-    <div className='w-[560px] border border-zinc-300 rounded-[5px] mx-[10px] my-[20px]'>
+    <div className='w-auto w-max-[560px] border border-zinc-300 rounded-[5px] mx-[10px] my-[20px]'>
             <div className='bg-[#E7E7E7] p-[30px] '>
-              <h1 className='text-3xl font-bold'>Card title</h1>
-              <p className='my-4 text-justify font-medium'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur nihil possimus harum facere nesciunt tempore nobis illo enim adipisci repudiandae non voluptatem unde aperiam, deserunt odio alias pariatur iusto error numquam dolorum! Quasi id assumenda exercitationem quae enim, tempore amet porro quod, pariatur, nesciunt a rem libero nostrum aliquam dolorum!</p>
+              <h1 className='text-3xl font-bold'>{data.title}</h1>
+              <p className='my-4 text-justify font-medium'>{data.description}</p>
             </div>
             <div className='flex bg-zinc-300 justify-end p-2 items-center'>
               <button className='bg-yellow-400 py-2 px-5 rounded-[5px] font-bold hover:bg-yellow-500' 
               onClick={()=>{
-                openEditModal(true)
+                setActiveCard(data)
+                setOpenModal("edit")
               }}>Edit</button>
               <button className='bg-yellow-400 py-2 px-5 rounded-[5px] font-bold mx-2 hover:bg-yellow-500'
               onClick={()=>{
-                openDeleteModal(true)
+                setOpenModal("delete")
+                setActiveCard(data)
               }}
               >Delete</button>
             </div>
