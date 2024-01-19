@@ -1,6 +1,9 @@
 import React from 'react'
+import { useContext } from 'react'
+import Context from '../../ContextWrapper'
 
-function Navigation({setAuthorized, authorized,email}) {
+function Navigation() {
+  const {email, setAuthorized} = useContext(Context)
   return (
     <nav className='flex flex-col sm:flex-row bg-[#E7E7E7] py-3 px-[68px]  items-center sm:justify-between justify-center'>
         

@@ -1,26 +1,41 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useContext, useReducer} from 'react'
 import MainCard from './common/MainCard'
 import Navigation from './common/Navigation'
 import CreateCard from './common/CreateCard'
 import EditCard from './common/EditCard'
 import DeleteCard from './common/DeleteCard'
-function Mainpage({setAuthorized,authorized,email}) {
-  const [openModal, setOpenModal]=useState("")
+import Context from '../ContextWrapper'
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "create":
+      return {type:(state.type="create")}
+    case "edit":
+      return {type:(state.type="edit")}
+    case "delete":
+      return {type:(state.type="delete")}
+    case '':
+      return {type:(state.type="")}
+  }
+}
+
+function Mainpage() {
+  const {email} = useContext(Context)
   const [activeCard, setActiveCard]=useState()
   const [cards, setCards]=useState([])
   const [filteredCards, setFilteredCards]=useState([])
-
+  const [state, dispatch] = useReducer(reducer, {type:""})
   useEffect(()=>{
     setFilteredCards(cards.filter((card)=>card.author === email))
     console.log(cards)
   }, [cards])
 
   return (
-    <div className={`${openModal?"overflow-hidden":null} h-screen`}>
-      <Navigation setAuthorized={setAuthorized} authorized = {authorized} email={email}/>
+    <div className={`${state.type?"overflow-hidden":null} h-screen`}>
+      <Navigation/>
       <button className='bg-yellow-400 py-3 px-10 font-bold rounded-[8px] hover:bg-yellow-500 ml-[68px] mt-[20px] '
       onClick={(e)=>{
-        setOpenModal("create")
+        dispatch({ type: 'create' });
       }}
       >Create card</button>
        
@@ -32,7 +47,7 @@ function Mainpage({setAuthorized,authorized,email}) {
               key={card.id}
               data={card}
               setActiveCard={setActiveCard} 
-              setOpenModal={setOpenModal}/>
+              dispatch={dispatch}/>
 
             )
           ):(
@@ -42,24 +57,24 @@ function Mainpage({setAuthorized,authorized,email}) {
         
       </div>
       
-      {openModal=="create" && (
+      {state.type ==="create" && (
         <div className='fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75'>
-          <CreateCard setOpenModal={setOpenModal} email={email} setCards={setCards} />
+          <CreateCard dispatch={dispatch} email={email} setCards={setCards} />
         </div>
       )}
-      {openModal=="edit" && (
+      {state.type ==="edit" && (
         <div className='fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75'>
           <EditCard
-           setOpenModal={setOpenModal}
+           dispatch={dispatch}
            setCards={setCards}
            cards ={cards}
            activeCard={activeCard}/>
         </div>
       )}
-      {openModal=="delete" && (
+      {state.type ==="delete" && (
         <div className='fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75'>
           <DeleteCard 
-            setOpenModal={setOpenModal} 
+            dispatch={dispatch} 
             cards={cards} 
             activeCard={activeCard} 
             setCards={setCards}/>

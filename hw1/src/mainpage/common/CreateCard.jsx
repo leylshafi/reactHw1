@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {v4 as uuidv4} from 'uuid'
-function CreateCard({setOpenModal,setCards, email}) {
+function CreateCard({dispatch,setCards, email}) {
   const [formData, setFormData]=useState({})
 
   const handleChange = (e)=>{
@@ -17,7 +17,7 @@ function CreateCard({setOpenModal,setCards, email}) {
   const createCard = (e)=>{
     e.preventDefault();
     setCards((prevValue)=>[...prevValue, formData]);
-    setOpenModal("");
+    dispatch({ type: '' });
   };
 
   return (
@@ -25,7 +25,7 @@ function CreateCard({setOpenModal,setCards, email}) {
         <div className='w-[100%]'>
             <button className='bg-red-600 p-2 rounded-full float-right my-0 mx-5' 
             onClick={()=>{
-              setOpenModal("")
+              dispatch({ type: '' });
               }}></button>
         </div>
           <h1 className='text-3xl font-bold mb-5'>CREATE CARD</h1>
@@ -46,7 +46,7 @@ function CreateCard({setOpenModal,setCards, email}) {
             <div className='flex justify-end h-[20%] items-center mt-[20px]'>
               <button className='border border-zinc-300 py-2 px-5 rounded-[5px] font-bold hover:bg-[#DFDFDF]'
               onClick={()=>{
-                setOpenModal("")
+                dispatch({ type: '' });
               }}
               >Close</button>
               <button

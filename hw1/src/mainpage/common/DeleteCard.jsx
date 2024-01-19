@@ -1,16 +1,16 @@
 import React from 'react'
 
-function DeleteCard({setOpenModal, cards, activeCard, setCards }) {
+function DeleteCard({dispatch, cards, activeCard, setCards }) {
   const deleteCard=()=>{
     setCards(cards.filter((card) => card!== activeCard));
-    setOpenModal("");
+    dispatch({ type: '' });
   }
   return (
     <form action="" className='flex flex-col items-center sm:w-[700px] w-screen sm:h-[250px] h-screen justify-center rounded-none sm:rounded-[13px] bg-white'>
     <div className='w-[100%]'>
         <button className='bg-red-600 p-2 rounded-full float-right my-0 mx-5' 
         onClick={()=>{
-          setOpenModal("")
+          dispatch({ type: '' });
           }}></button>
     </div>
       <h1 className='text-3xl font-bold mb-5'>DELETE CARD</h1>
@@ -18,7 +18,7 @@ function DeleteCard({setOpenModal, cards, activeCard, setCards }) {
         <div className='flex justify-center h-[20%] items-center mt-[20px]'>
           <button className='border border-zinc-300 py-2 px-5 rounded-[5px] font-bold hover:bg-[#DFDFDF]'
           onClick={()=>{
-            setOpenModal("")
+            dispatch({ type: '' });
           }}
           >Close</button>
           <button className='bg-yellow-400 py-2 px-5 rounded-[5px] font-bold mx-2 hover:bg-[#F6AB1A]'

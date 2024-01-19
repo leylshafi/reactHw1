@@ -1,8 +1,9 @@
 import { useState } from 'react';
-
-function LoginCard({ setAuthorized, setEmail, email }) {
+import { useContext } from 'react';
+import Context from '../../ContextWrapper';
+function LoginCard() {
   const [isValid, setIsValid] = useState(true);
-
+  const {setEmail,email, setAuthorized} = useContext(Context)
   return (
     <form
       action=""

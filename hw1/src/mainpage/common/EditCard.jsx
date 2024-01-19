@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function EditCard({setOpenModal,setCards,cards, activeCard}) {
+function EditCard({dispatch,setCards,cards, activeCard}) {
   const [formData, setFormData]=useState({
     title: activeCard.title,
     description : activeCard.description
@@ -16,12 +16,11 @@ function EditCard({setOpenModal,setCards,cards, activeCard}) {
 
   const editCard = (e)=>{
     e.preventDefault()
-    console.log("clicked");
     const editedCards = cards.map((card) =>
       card === activeCard ? { ...card, ...formData } : card
     );
     setCards(editedCards);
-    setOpenModal('');
+    dispatch({ type: '' });
   }
 
   return (
@@ -29,7 +28,7 @@ function EditCard({setOpenModal,setCards,cards, activeCard}) {
         <div className='w-[100%]'>
             <button className='bg-red-600 p-2 rounded-full float-right my-0 mx-5' 
             onClick={()=>{
-              setOpenModal("")
+              dispatch({ type: '' });
               }}></button>
         </div>
           <h1 className='text-3xl font-bold mb-5'>EDIT CARD</h1>
@@ -52,7 +51,7 @@ function EditCard({setOpenModal,setCards,cards, activeCard}) {
             <div className='flex justify-end h-[20%] items-center mt-[20px]'>
               <button className='border border-zinc-300 py-2 px-5 rounded-[5px] font-bold hover:bg-[#DFDFDF]'
               onClick={()=>{
-                setOpenModal("")
+                dispatch({ type: '' });
               }}
               >Close</button>
               <button className='bg-yellow-400 py-2 px-5 rounded-[5px] font-bold mx-2 hover:bg-[#F6AB1A]'
