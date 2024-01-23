@@ -1,9 +1,23 @@
 import React from 'react'
 
-function DeleteCard({dispatch, cards, activeCard, setCards }) {
-  const deleteCard=()=>{
-    setCards(cards.filter((card) => card!== activeCard));
-    dispatch({ type: '' });
+function DeleteCard({dispatch,  id }) {
+  const deleteCard= async (id)=>{
+    try {
+      const response  = await fetch(`http://localhost:3000/cards/${id}`,{
+        method: "DELETE"
+      });
+      const data = await response.json()
+      console.log("Deleted: ",data.message);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleDelete = (e)=>{
+    e.preventDefault()
+    deleteCard(id)
+    console.log(id);
+    dispatch({ type: "" })
   }
   return (
     <form action="" className='flex flex-col items-center sm:w-[700px] w-screen sm:h-[250px] h-screen justify-center rounded-none sm:rounded-[13px] bg-white'>
@@ -22,9 +36,7 @@ function DeleteCard({dispatch, cards, activeCard, setCards }) {
           }}
           >Close</button>
           <button className='bg-yellow-400 py-2 px-5 rounded-[5px] font-bold mx-2 hover:bg-[#F6AB1A]'
-          onClick={() => {
-            deleteCard();
-          }}
+          onClick={(e) => handleDelete(e)}
           >Delete</button>
         </div>
       

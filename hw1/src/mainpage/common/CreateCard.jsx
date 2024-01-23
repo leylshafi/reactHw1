@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import {v4 as uuidv4} from 'uuid'
 function CreateCard({dispatch,setCards, email}) {
   const [formData, setFormData]=useState({})
 
@@ -10,14 +9,25 @@ function CreateCard({dispatch,setCards, email}) {
       ...prevForm,
       [name]:value,
       author:email,
-      id : uuidv4(),
     }));
   }
 
-  const createCard = (e)=>{
+  const createCard = async (e)=>{
     e.preventDefault();
-    setCards((prevValue)=>[...prevValue, formData]);
-    dispatch({ type: '' });
+    try {
+      const response = await fetch('http://localhost:3000/cards', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      console.log(data);
+      dispatch({ type: '' });
+    } catch (error) {
+      console.error('Error creating card:', error.message);
+    }
   };
 
   return (

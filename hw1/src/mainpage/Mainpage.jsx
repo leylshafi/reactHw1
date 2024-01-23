@@ -25,13 +25,30 @@ function Mainpage() {
   const [cards, setCards]=useState([])
   const [filteredCards, setFilteredCards]=useState([])
   const [state, dispatch] = useReducer(reducer, {type:""})
+  
   useEffect(()=>{
     setFilteredCards(cards.filter((card)=>card.author === email))
     console.log(cards)
   }, [cards])
 
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/cards/${email}`
+        );
+        const results = await response.json();
+        console.log(results);
+        setCards(results);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getData();
+  }, [cards])
+
   return (
-    <div className={`${state.type?"overflow-hidden":null} h-screen`}>
+    <div className={`${state.type?"overflow-hidden":null} h-screen `}>
       <Navigation/>
       <button className='bg-yellow-400 py-3 px-10 font-bold rounded-[8px] hover:bg-yellow-500 ml-[68px] mt-[20px] '
       onClick={(e)=>{
@@ -76,7 +93,7 @@ function Mainpage() {
           <DeleteCard 
             dispatch={dispatch} 
             cards={cards} 
-            activeCard={activeCard} 
+            id={activeCard._id} 
             setCards={setCards}/>
         </div>
       )}

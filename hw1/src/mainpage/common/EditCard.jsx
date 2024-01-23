@@ -1,27 +1,42 @@
 import React, { useState } from 'react'
 
-function EditCard({dispatch,setCards,cards, activeCard}) {
+function EditCard({dispatch,activeCard}) {
   const [formData, setFormData]=useState({
     title: activeCard.title,
     description : activeCard.description
   })
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevForm) => ({
-      ...prevForm,
-      [name]: value,
-    }));
-  };
 
-  const editCard = (e)=>{
-    e.preventDefault()
-    const editedCards = cards.map((card) =>
-      card === activeCard ? { ...card, ...formData } : card
-    );
-    setCards(editedCards);
-    dispatch({ type: '' });
+  const editCard = async (id, formData)=>{
+    try {
+      const response = await fetch(`http://localhost:3000/cards/${id}`,{
+        method:"PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData)
+      })
+      const data = await response.json();
+      console.log("Updated Card:", data);
+    } catch (error) {
+      console.log(error);
+    }
   }
+
+  const handleEdit = (e) => {
+    e.preventDefault()
+    const editedCard = { ...activeCard, ...formData };
+    editCard(activeCard._id,editedCard);
+    dispatch({ type: '' });
+};
+
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+  }));
+};
 
   return (
     <form action="" className='flex flex-col items-center sm:w-[700px] w-screen sm:h-[350px] h-screen justify-center rounded-none sm:rounded-[13px] bg-white'>
@@ -56,7 +71,7 @@ function EditCard({dispatch,setCards,cards, activeCard}) {
               >Close</button>
               <button className='bg-yellow-400 py-2 px-5 rounded-[5px] font-bold mx-2 hover:bg-[#F6AB1A]'
                 onClick={(e) => {
-                  editCard(e);
+                  handleEdit(e);
                 }}
               >Save</button>
             </div>
