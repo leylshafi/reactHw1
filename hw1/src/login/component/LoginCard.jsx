@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { useContext } from 'react';
 import Context from '../../ContextWrapper';
+import { useNavigate } from 'react-router-dom';
+
 function LoginCard() {
+  const navigate = useNavigate()
   const [isValid, setIsValid] = useState(true);
   const {setEmail,email, setAuthorized} = useContext(Context)
   return (
@@ -31,6 +34,7 @@ function LoginCard() {
         disabled={!isValid}
         onClick={() => {
           isValid ? setAuthorized(true) : null;
+          navigate("/mainpage")
         }}
         className={`${
           isValid ? 'bg-yellow-500 hover:bg-yellow-700' : 'bg-[#D7D7D7] pointer-events-none'

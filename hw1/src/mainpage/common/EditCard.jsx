@@ -17,7 +17,6 @@ function EditCard({dispatch,activeCard}) {
         body: JSON.stringify(formData)
       })
       const data = await response.json();
-      console.log("Updated Card:", data);
     } catch (error) {
       console.log(error);
     }

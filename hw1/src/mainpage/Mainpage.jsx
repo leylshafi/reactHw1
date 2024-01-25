@@ -28,7 +28,7 @@ function Mainpage() {
   
   useEffect(()=>{
     setFilteredCards(cards.filter((card)=>card.author === email))
-    console.log(cards)
+    
   }, [cards])
 
   useEffect(() => {
@@ -38,7 +38,6 @@ function Mainpage() {
           `http://localhost:3000/cards/${email}`
         );
         const results = await response.json();
-        console.log(results);
         setCards(results);
       } catch (error) {
         console.error(error);

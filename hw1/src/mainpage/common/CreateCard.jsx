@@ -22,9 +22,11 @@ function CreateCard({dispatch,setCards, email}) {
         },
         body: JSON.stringify(formData),
       });
-      const data = await response.json();
-      console.log(data);
-      dispatch({ type: '' });
+      if(response.ok){
+        const data = await response.json();
+        dispatch({ type: '' });
+      }
+      
     } catch (error) {
       console.error('Error creating card:', error.message);
     }
